@@ -1,7 +1,7 @@
 import json
 import folium
 
-PLIK_DANE = "krakow_tram_data.json"
+PLIK_DANE = "linie_tramwajowe.json"
 PLIK_MAPA = "mapa_tramwaje.html"
 
 def sortuj_linie_po_liczbie_przystankow(dane_linii):

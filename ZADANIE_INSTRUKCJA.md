@@ -6,7 +6,7 @@ Zadanie polega na przetworzeniu danych o liniach tramwajowych w Krakowie, wykona
 
 ## Dane wejściowe
 
-W pliku `krakow_tram_data.json` znajdują się dane o 17 liniach tramwajowych w Krakowie wraz z przystankami i ich współrzędnymi GPS (stan: 2025). Struktura danych:
+W pliku `linie_tramwajowe.json` znajdują się dane o 17 liniach tramwajowych w Krakowie wraz z przystankami i ich współrzędnymi GPS (stan: 2025). Struktura danych:
 
 ```json
 {
@@ -33,7 +33,7 @@ W języku Python czytanie danych w formacie JSON wykonywane jest z pomocą modu�
 ```python
 import json
 
-with open('krakow_tram_data.json', 'r', encoding='utf-8') as file:
+with open('linie_tramwajowe.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 ```
 
@@ -47,11 +47,11 @@ Dostęp do danych:
 
 ## Zadanie do wykonania
 
-### Część 1: Przetwarzanie danych (0.75 pkt)
+### Część 1: Przetwarzanie i analiza danych (0.75 pkt)
 
-Napisz funkcję `process_tram_data(input_file, output_file)`, która:
+Napisz funkcję `process_tram_data(input_file)`, która:
 
-1. **Wczytuje dane** z pliku `input_file` (np. `krakow_tram_data.json`)
+1. **Wczytuje dane** z pliku `input_file` (np. `linie_tramwajowe.json`)
 
 2. **Przetwarza dane** do uproszczonego formatu - słownika, gdzie:
    - **Klucz**: numer linii tramwajowej (jako `int`, np. 1, 3, 4, ...)
@@ -66,19 +66,14 @@ Napisz funkcję `process_tram_data(input_file, output_file)`, która:
    }
    ```
 
-3. **Zapisuje wynik** do pliku `output_file` w formacie JSON:
-   ```python
-   with open(output_file, 'w', encoding='utf-8') as file:
-       json.dump(trams_dict, file, ensure_ascii=False, indent=2)
-   ```
-
-4. **Wypisuje na ekranie**:
+3. **Wypisuje na ekranie**:
    - Informacje w formacie: `linia X: Y przystanków`
    - Posortowane po liczbie przystanków (malejąco)
    - Na końcu: całkowitą liczbę **unikalnych** przystanków (przystanki mogą być współdzielone przez różne linie)
 
-5. **Zwraca**:
-   - Słownik: `{numer_linii: liczba_przystanków}` (np. `{1: 28, 3: 24, ...}`)
+4. **Zwraca**:
+   - Słownik: `{numer_linii: krotka_przystanków}` (np. `{1: ('Wzgórza Krzesławickie', ...), ...}`)
+   - Słownik ze statystykami: `{numer_linii: liczba_przystanków}` (np. `{1: 28, 3: 24, ...}`)
    - Liczbę unikalnych przystanków (jako `int`)
 
 ### Część 2: Wizualizacja na mapie (0.75 pkt)
@@ -92,7 +87,7 @@ Napisz funkcję `create_tram_map(input_file, output_map_file)`, która:
    import folium
 
    # Stwórz mapę wycentrowaną na Krakowie
-   m = folium.Map(location=[50.0, 20.0], zoom_start=12, tiles="cartodbpositron")
+   m = folium.Map(location=[50.06, 19.95], zoom_start=12, tiles="cartodbpositron")
    ```
 
 3. **Rysuje trasy tramwajowe** jako linie (`PolyLine`):
@@ -130,9 +125,8 @@ pip install folium
 
 ```
 ZADANIE2/
-├── krakow_tram_data.json        # Plik wejściowy (dostarczony)
+├── linie_tramwajowe.json        # Plik wejściowy (dostarczony)
 ├── zadanie2.py                   # Twój kod (do uzupełnienia)
-├── tramwaje_out.json            # Plik wyjściowy (generowany)
 └── mapa_tramwaje.html           # Mapa HTML (generowana)
 ```
 
@@ -142,16 +136,18 @@ ZADANIE2/
 import json
 import folium
 
-def process_tram_data(input_file, output_file):
+def process_tram_data(input_file):
     """
-    Przetwarza dane tramwajowe i zapisuje uproszczony format.
+    Przetwarza i analizuje dane tramwajowe.
 
     Args:
         input_file: ścieżka do pliku wejściowego JSON
-        output_file: ścieżka do pliku wyjściowego JSON
 
     Returns:
-        tuple: (słownik {linia: liczba_przystanków}, liczba_unikalnych_przystanków)
+        tuple: (słownik_linii, statystyki, liczba_unikalnych_przystanków)
+        - słownik_linii: {numer: krotka_przystanków}
+        - statystyki: {numer: liczba_przystanków}
+        - liczba_unikalnych_przystanków: int
     """
     # TODO: Implementacja
     pass
@@ -169,10 +165,12 @@ def create_tram_map(input_file, output_map_file):
 
 if __name__ == "__main__":
     # Część 1: Przetwarzanie danych
-    stats, unique_stops = process_tram_data('krakow_tram_data.json', 'tramwaje_out.json')
+    trams_dict, stats, unique_stops = process_tram_data('linie_tramwajowe.json')
+
+    print(f"\nLiczba unikalnych przystanków: {unique_stops}")
 
     # Część 2: Wizualizacja
-    create_tram_map('krakow_tram_data.json', 'mapa_tramwaje.html')
+    create_tram_map('linie_tramwajowe.json', 'mapa_tramwaje.html')
 
     print(f"\nPomyślnie wygenerowano mapę: mapa_tramwaje.html")
 ```
@@ -198,7 +196,7 @@ linia 20: 20
 linia 21: 20
 linia 11: 18
 
-Liczba unikalnych przystanków: 142
+Liczba unikalnych przystanków: 154
 
 Pomyślnie wygenerowano mapę: mapa_tramwaje.html
 ```
@@ -216,9 +214,8 @@ line_number = int(line_obj['linia'])
 ```python
 # Użyj set() do znalezienia unikalnych nazw
 all_stops = set()
-for line in lines:
-    for stop in line['przystanki']:
-        all_stops.add(stop['nazwa'])
+for stops_tuple in trams_dict.values():
+    all_stops.update(stops_tuple)
 
 unique_count = len(all_stops)
 ```
@@ -263,14 +260,13 @@ tooltip = f"{stop_name} – linie: {', '.join(lines_list)}"
 ## Punktacja
 
 - **Część 1** (przetwarzanie danych): 0.75 pkt
-  - Poprawne wczytanie i przetworzenie danych
-  - Zapisanie do pliku wyjściowego
-  - Wypisanie statystyk
-  - Zwrócenie poprawnych wartości
+  - Poprawne wczytanie i przetworzenie danych do słownika
+  - Wypisanie statystyk na ekranie
+  - Zwrócenie poprawnych wartości (słownik linii, statystyki, liczba unikalnych)
 
 - **Część 2** (wizualizacja): 0.75 pkt
   - Stworzenie mapy z folium
-  - Narysowanie tras tramwajowych
+  - Narysowanie tras tramwajowych z różnymi kolorami
   - Oznaczenie przystanków z tooltipami
   - Zapisanie mapy HTML
 

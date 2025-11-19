@@ -7,16 +7,18 @@ import json
 import folium
 
 
-def process_tram_data(input_file, output_file):
+def process_tram_data(input_file):
     """
-    Przetwarza dane tramwajowe i zapisuje uproszczony format.
+    Przetwarza i analizuje dane tramwajowe.
 
     Args:
         input_file (str): ścieżka do pliku wejściowego JSON
-        output_file (str): ścieżka do pliku wyjściowego JSON
 
     Returns:
-        tuple: (słownik {linia: liczba_przystanków}, liczba_unikalnych_przystanków)
+        tuple: (słownik_linii, statystyki, liczba_unikalnych_przystanków)
+        - słownik_linii: {numer: krotka_przystanków}
+        - statystyki: {numer: liczba_przystanków}
+        - liczba_unikalnych_przystanków: int
     """
     # Wczytaj dane z pliku
     with open(input_file, 'r', encoding='utf-8') as file:
@@ -36,10 +38,6 @@ def process_tram_data(input_file, output_file):
         # Dodaj do słownika (konwertuj listę na krotkę)
         trams_dict[line_number] = tuple(stops)
 
-    # Zapisz przetworzone dane do pliku
-    with open(output_file, 'w', encoding='utf-8') as file:
-        json.dump(trams_dict, file, ensure_ascii=False, indent=2)
-
     # Stwórz słownik ze statystykami {linia: liczba_przystanków}
     stats = {line: len(stops) for line, stops in trams_dict.items()}
 
@@ -53,7 +51,7 @@ def process_tram_data(input_file, output_file):
     for stops_tuple in trams_dict.values():
         unique_stops.update(stops_tuple)
 
-    return stats, len(unique_stops)
+    return trams_dict, stats, len(unique_stops)
 
 
 def create_tram_map(input_file, output_map_file):
@@ -155,17 +153,14 @@ def main():
     # Część 1: Przetwarzanie danych
     print("Część 1: Przetwarzanie danych")
     print("-" * 60)
-    stats, unique_stops = process_tram_data(
-        'krakow_tram_data.json',
-        'tramwaje_out.json'
-    )
+    trams_dict, stats, unique_stops = process_tram_data('linie_tramwajowe.json')
     print(f"\nLiczba unikalnych przystanków: {unique_stops}")
     print()
 
     # Część 2: Wizualizacja
     print("Część 2: Tworzenie mapy")
     print("-" * 60)
-    create_tram_map('krakow_tram_data.json', 'mapa_tramwaje.html')
+    create_tram_map('linie_tramwajowe.json', 'mapa_tramwaje.html')
     print(f"Pomyślnie wygenerowano mapę: mapa_tramwaje.html")
     print()
 
