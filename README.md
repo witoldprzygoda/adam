@@ -11,7 +11,6 @@ Projekt do analizy danych o sieci tramwajowej w Krakowie z wizualizacją na inte
 ├── zadanie2.py                 # Szablon do uzupełnienia przez studentów
 ├── zadanie2_rozwiazanie.py     # Przykładowe rozwiązanie (dla instruktora)
 ├── tests/                      # Testy jednostkowe
-│   ├── __init__.py
 │   └── test_zadanie2.py        # Testy dla funkcji process_tram_data()
 └── mapa_tramwaje.html          # Mapa interaktywna (generowana)
 ```
