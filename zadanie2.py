@@ -10,20 +10,18 @@ import folium
 
 def process_tram_data(input_file):
     """
-    Przetwarza i analizuje dane tramwajowe.
+    Analizuje dane tramwajowe i wypisuje statystyki.
 
     Args:
         input_file (str): ścieżka do pliku wejściowego JSON
 
     Returns:
-        tuple: (słownik_linii, statystyki, liczba_unikalnych_przystanków)
-        - słownik_linii: {numer: krotka_przystanków}
-        - statystyki: {numer: liczba_przystanków}
+        tuple: (statystyki, liczba_unikalnych_przystanków)
+        - statystyki: {numer_linii: liczba_przystanków}
         - liczba_unikalnych_przystanków: int
 
     Przykład:
-        trams, stats, unique = process_tram_data('linie_tramwajowe.json')
-        # trams = {1: ('Wzgórza Krzesławickie', ...), ...}
+        stats, unique = process_tram_data('linie_tramwajowe.json')
         # stats = {1: 28, 3: 24, ...}
         # unique = 154
     """
@@ -31,19 +29,16 @@ def process_tram_data(input_file):
     with open(input_file, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # TODO: Stwórz słownik w formacie {numer_linii: krotka_przystanków}
-    trams_dict = {}
-
-    # TODO: Przejdź przez wszystkie linie i przetworz dane
-    for line_obj in data['linie']:
-        line_number = None  # TODO: Zamień numer linii na int
-        stops = []  # TODO: Wyciągnij nazwy przystanków do listy
-
-        # TODO: Dodaj do słownika (pamiętaj o konwersji listy na krotkę)
-        pass
-
     # TODO: Stwórz słownik ze statystykami {linia: liczba_przystanków}
     stats = {}
+
+    # TODO: Przejdź przez wszystkie linie i policz przystanki
+    for line_obj in data['linie']:
+        line_number = None  # TODO: Zamień numer linii na int
+        stop_count = 0  # TODO: Policz przystanki dla tej linii
+
+        # TODO: Dodaj do słownika statystyk
+        pass
 
     # TODO: Wypisz statystyki posortowane malejąco po liczbie przystanków
     # Format: "linia X: Y"
@@ -52,7 +47,7 @@ def process_tram_data(input_file):
     unique_stops = set()
 
     # Zwróć wyniki
-    return trams_dict, stats, len(unique_stops)
+    return stats, len(unique_stops)
 
 
 def create_tram_map(input_file, output_map_file):
@@ -116,10 +111,10 @@ def main():
     print("=" * 60)
     print()
 
-    # Część 1: Przetwarzanie danych
-    print("Część 1: Przetwarzanie danych")
+    # Część 1: Analiza danych
+    print("Część 1: Analiza danych")
     print("-" * 60)
-    trams_dict, stats, unique_stops = process_tram_data('linie_tramwajowe.json')
+    stats, unique_stops = process_tram_data('linie_tramwajowe.json')
     print(f"\nLiczba unikalnych przystanków: {unique_stops}")
     print()
 

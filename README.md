@@ -25,11 +25,12 @@ Plik `linie_tramwajowe.json` zawiera:
 
 Studenci mają zaimplementować dwie funkcje:
 
-### Część 1: Przetwarzanie i analiza danych (0.75 pkt)
+### Część 1: Analiza danych (0.75 pkt)
 - Wczytanie danych z JSON
-- Konwersja do uproszczonego formatu (słownik: linia → krotka przystanków)
+- Analiza liczby przystanków dla każdej linii
 - Wypisanie statystyk na ekranie (posortowane malejąco)
-- Zwrócenie: słownika linii, słownika statystyk, liczby unikalnych przystanków
+- Zliczenie unikalnych przystanków
+- Zwrócenie: słownika statystyk, liczby unikalnych przystanków
 
 ### Część 2: Wizualizacja (0.75 pkt)
 - Stworzenie interaktywnej mapy z folium
