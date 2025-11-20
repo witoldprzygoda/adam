@@ -94,39 +94,23 @@ Liczba unikalnych przystanków: **154**
 
 ## Testy
 
-Projekt zawiera 17 testów jednostkowych dla funkcji `process_tram_data()`:
+Projekt zawiera 3 testy jednostkowe dla funkcji `process_tram_data()`:
 
-- **Testy typu zwracanego**: sprawdzają czy funkcja zwraca poprawne typy danych
-- **Testy wartości**: weryfikują poprawność liczby unikalnych przystanków (154) i liczby linii (17)
-- **Testy konkretnych linii**: sprawdzają poprawność liczby przystanków dla każdej linii
-- **Testy formatowania**: weryfikują poprawność wydruku na ekranie
-- **Testy sortowania**: sprawdzają czy wyniki są posortowane malejąco
+- **test_return_values**: sprawdza typy zwracanych wartości oraz liczby (17 linii, 154 unikalne przystanki)
+- **test_specific_line_counts**: weryfikuje poprawność liczby przystanków dla wybranych linii
+- **test_output_format**: sprawdza format wydruku i sortowanie malejące
 
 Wszystkie testy przechodzą pomyślnie ✅
 
 ```bash
 ============================= test session starts ==============================
-collected 17 items
+collected 3 items
 
-tests/test_zadanie2.py::TestProcessTramData::test_return_type PASSED     [  5%]
-tests/test_zadanie2.py::TestProcessTramData::test_statistics_dict_type PASSED [ 11%]
-tests/test_zadanie2.py::TestProcessTramData::test_unique_stops_type PASSED [ 17%]
-tests/test_zadanie2.py::TestProcessTramData::test_unique_stops_count PASSED [ 23%]
-tests/test_zadanie2.py::TestProcessTramData::test_number_of_lines PASSED [ 29%]
-tests/test_zadanie2.py::TestProcessTramData::test_line_numbers_are_int PASSED [ 35%]
-tests/test_zadanie2.py::TestProcessTramData::test_stop_counts_are_int PASSED [ 41%]
-tests/test_zadanie2.py::TestProcessTramData::test_stop_counts_positive PASSED [ 47%]
-tests/test_zadanie2.py::TestProcessTramData::test_specific_line_counts PASSED [ 52%]
-tests/test_zadanie2.py::TestProcessTramData::test_longest_lines PASSED   [ 58%]
-tests/test_zadanie2.py::TestProcessTramData::test_shortest_line PASSED   [ 64%]
-tests/test_zadanie2.py::TestProcessTramData::test_prints_output PASSED   [ 70%]
-tests/test_zadanie2.py::TestProcessTramData::test_prints_all_lines PASSED [ 76%]
-tests/test_zadanie2.py::TestProcessTramData::test_output_format PASSED   [ 82%]
-tests/test_zadanie2.py::TestProcessTramData::test_output_sorted_descending PASSED [ 88%]
-tests/test_zadanie2.py::TestProcessTramData::test_unique_stops_positive PASSED [ 94%]
-tests/test_zadanie2.py::TestProcessTramData::test_unique_stops_reasonable PASSED [100%]
+tests/test_zadanie2.py::test_return_values PASSED                        [ 33%]
+tests/test_zadanie2.py::test_specific_line_counts PASSED                 [ 66%]
+tests/test_zadanie2.py::test_output_format PASSED                        [100%]
 
-============================== 17 passed in 0.78s ==============================
+============================== 3 passed in 0.70s ==============================
 ```
 
 ## Technologie
