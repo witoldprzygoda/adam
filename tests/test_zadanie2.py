@@ -2,13 +2,7 @@
 Testy dla zadania 2: Analiza i wizualizacja sieci tramwajowej w Krakowie
 """
 
-import sys
-import os
-
-# Dodaj katalog nadrzędny do ścieżki, aby zaimportować zadanie2_rozwiazanie
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from zadanie2_rozwiazanie import process_tram_data
+from zadanie2 import process_tram_data
 
 
 def test_return_values():
