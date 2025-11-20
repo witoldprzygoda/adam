@@ -1,2 +1,7 @@
 # Generated files
 mapa_tramwaje.html
+
+# Test cache
+.pytest_cache/
+__pycache__/
+*.pyc
