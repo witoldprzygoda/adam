@@ -66,13 +66,13 @@ python zadanie2.py
 ### Uruchomienie testów
 
 ```bash
-pytest tests/test_zadanie2.py -v
+python3 -m pytest tests/test_zadanie2.py -v
 ```
 
 Lub po prostu:
 
 ```bash
-pytest -v
+python3 -m pytest -v
 ```
 
 ## Wyniki
